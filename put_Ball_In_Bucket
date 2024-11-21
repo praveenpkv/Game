@@ -141,7 +141,7 @@ function executeGame(string, previousPostion, chance) {
       currentPosition = previousPostion + numberOnDice;
       console.log("\nBall moved forward by ", numberOnDice, "\n");
       string = moveBallForward(string, previousPostion, currentPosition);
-    } else if {
+    } else {
       console.log(string);
       console.log("hole left behind");
       return;
