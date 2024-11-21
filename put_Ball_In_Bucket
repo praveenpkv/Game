@@ -1,5 +1,8 @@
 // currently working on it.....i will remove this line when it gets completed.
 
+// currently working on it.....i will remove this line when it gets completed.
+
+
 function getPlayingArea() {
   return "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     + "\n┃●                                                       ┃"
@@ -105,7 +108,7 @@ function rollDice(numberOnDice) {
   return (getDice(numberOnDice));
 }
 
-function moveBall(string, previousPostion, currentPosition) {
+function moveBallForward(string, previousPostion, currentPosition) {
   string = replace(string, previousPostion, " ");
   string = replace(string, currentPosition, "●");
 
@@ -136,14 +139,15 @@ function executeGame(string, previousPostion, chance) {
     
     if (previousPostion < 108 ) {
       currentPosition = previousPostion + numberOnDice;
-    } else {
+      console.log("\nBall moved forward by ", numberOnDice, "\n");
+      string = moveBallForward(string, previousPostion, currentPosition);
+    } else if {
       console.log(string);
       console.log("hole left behind");
       return;
       // currentPosition = previousPostion - numberOnDice;
     }
     
-    string = moveBall(string, previousPostion, currentPosition);
     console.log(string);
     previousPostion = currentPosition;
 
@@ -159,7 +163,7 @@ function startGame(string) {
   console.log(getDice(1));
   console.log(string);
 
-  executeGame(string, 60, 26);
+  executeGame(string, 60, 20);
 
 }
 
