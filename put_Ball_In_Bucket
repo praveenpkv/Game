@@ -1,1 +1,181 @@
+// currently working on it.....i will remove this line when it gets completed.
 
+function getPlayingArea() {
+  return "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    + "\n┃●                                                       ┃"
+    + "\n┃████████████████████████████████████████████████ ███████┃"
+    + "\n┃	                                                 ┃"
+    + "\n┃	                                                 ┃"
+    + "\n┃	                                                 ┃"
+    + "\n┃	                                                 ┃"
+    + "\n┃	                                                 ┃"
+    + "\n┃	                                                 ┃"
+    + "\n┃	                                                 ┃"
+    + "\n┃	                                                 ┃"
+    + "\n┃	                                                 ┃"
+    + "\n┃	                                                 ┃"
+    + "\n┃	                                                 ┃"
+    + "\n┃	                                                 ┃"
+    + "\n┃	                                     .........   ┃"
+    + "\n┃	                                     ┃       ┃   ┃"
+    + "\n┃	                                     ┃       ┃   ┃"
+    + "\n┃	                                     ┃       ┃   ┃"
+    + "\n┃	                                     ┃       ┃   ┃"
+    + "\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+}
+
+function wait(time) {
+  time = time * 100000000;
+  while (time > 0) {
+    time--;
+  }
+  return;
+}
+
+function getDice(rollDice) {
+  let dice = "";
+
+  if (rollDice === 6) {
+    dice = ("┏━━━━━━━━━┓");
+    dice += ("\n┃  ●   ●  ┃");
+    dice += ("\n┃  ●   ●  ┃");
+    dice += ("\n┃  ●   ●  ┃");
+    dice += ("\n┗━━━━━━━━━┛");
+  }
+  if (rollDice === 5) {
+    dice = ("┏━━━━━━━━━┓");
+    dice += ("\n┃  ●   ●  ┃");
+    dice += ("\n┃    ●    ┃");
+    dice += ("\n┃  ●   ●  ┃");
+    dice += ("\n┗━━━━━━━━━┛");
+  }
+
+  if (rollDice === 4) {
+    dice = ("┏━━━━━━━━━┓");
+    dice += ("\n┃  ●   ●  ┃");
+    dice += ("\n┃         ┃");
+    dice += ("\n┃  ●   ●  ┃");
+    dice += ("\n┗━━━━━━━━━┛");
+  }
+
+  if (rollDice === 3) {
+    dice = ("┏━━━━━━━━━┓");
+    dice += ("\n┃  ●      ┃");
+    dice += ("\n┃    ●    ┃");
+    dice += ("\n┃      ●  ┃");
+    dice += ("\n┗━━━━━━━━━┛");
+  }
+
+
+  if (rollDice === 2) {
+    dice = ("┏━━━━━━━━━┓");
+    dice += ("\n┃  ●      ┃");
+    dice += ("\n┃         ┃");
+    dice += ("\n┃      ●  ┃");
+    dice += ("\n┗━━━━━━━━━┛");
+  }
+
+  if (rollDice === 1) {
+    dice = ("┏━━━━━━━━━┓");
+    dice += ("\n┃         ┃");
+    dice += ("\n┃    ●    ┃");
+    dice += ("\n┃         ┃");
+    dice += ("\n┗━━━━━━━━━┛");
+  }
+
+  return dice;
+}
+
+function replace(text, index, char) {
+  let string = "";
+
+  for (let i = 0; i < text.length; i++) {
+    if (i === index) {
+      string += char;
+    } else {
+      string += text[i];
+    }
+
+  }
+
+  return string;
+}
+
+function rollDice(numberOnDice) {
+  return (getDice(numberOnDice));
+}
+
+function moveBall(string, previousPostion, currentPosition) {
+  string = replace(string, previousPostion, " ");
+  string = replace(string, currentPosition, "●");
+
+  return string;
+}
+
+function executeGame(string, previousPostion, chance) {
+  if (chance === 0) {
+    console.log("\n\nyou lost");
+    return;
+  }
+
+  let numberOnDice = 0;
+  let currentPosition = 0;
+
+  console.log("\n", chance, " chances left")
+  const dorollDice = confirm('\nroll the dice????');
+
+  if (dorollDice) {
+    for (let index = 0; index < 35; index++) {
+      console.clear();
+      numberOnDice = Math.ceil(Math.random() * 6);
+      console.log(getDice(numberOnDice));
+      wait(1);
+
+    }
+
+    
+    if (previousPostion < 108 ) {
+      currentPosition = previousPostion + numberOnDice;
+    } else {
+      console.log(string);
+      console.log("hole left behind");
+      return;
+      // currentPosition = previousPostion - numberOnDice;
+    }
+    
+    string = moveBall(string, previousPostion, currentPosition);
+    console.log(string);
+    previousPostion = currentPosition;
+
+    return executeGame(string, previousPostion, chance - 1)
+  }
+  console.log("good byee....");
+
+  return;
+}
+
+function startGame(string) {
+  console.clear();
+  console.log(getDice(1));
+  console.log(string);
+
+  executeGame(string, 60, 26);
+
+}
+
+function wantToplay() {
+  const wantToplay = confirm('do you want to play');
+
+  if (wantToplay) {
+    startGame(getPlayingArea());
+  }
+  return;
+}
+
+function welcome() {
+  console.log("\n\n*******************welcome to The Game   PUT BALL IN BUCKET********************\n\n\n")
+
+  wantToplay();
+}
+
+welcome();
